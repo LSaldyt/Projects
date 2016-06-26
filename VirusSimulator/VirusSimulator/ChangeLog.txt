@@ -1,0 +1,125 @@
+
+9-16-15 Re-Uploaded the object files
+
+9-18-15 8:03 PM Made some updates to the Computer and Software classes so that they better mimic an actual machine.
+Also added The wireless Network Adapter
+
+9-19-15 12:27 pm Fixed the Software open and close functions, since there was an issue with them not actually changing the member variables
+Added USB hub. The class for the individual slots needs some way to allow for multiple types of devices (Ex, thumb drives, phones)
+
+9-22-15 Uploaded to GitHub so we could both contribute without worrying about the g++ compiler issues
+
+9-26-15 Added Harddrive / Storage objects but broke the open() and close() functions for software.
+			I'm still working on this, but I'll upload the broken files for now because of how many changes I've made
+
+10-1-15 Added USB_Drive Object
+		Added Establish Connection Function - Tested
+
+10-4-15 -Added Operating System and started out the permissions and user classes for you (mostly because the class Operating System
+		makes calls to User::login and User::logout)
+		-Fixed a lot of the headers, moving file declarations inside of header guards to prevent naming collisions
+		-Addition of the OS class brought functions like start() and shutdown(), but as the program is now, you can validly open and
+		close software even if the computer is turned off..
+			(This is easy to fix, just required an if statement)
+			The only reason I didn't implement this is because I don't want to have to write the same code for multiple functions, I would 
+			rather write a function that takes another function as a parameter and checks if the computer is on before running the passed
+			function. But since it doesn't affect anything we're trying to do too much, I've put it off for now..
+
+10-7-15 -Added some updates to the way Users are stored in the operating system
+		-Also bug fixes
+
+10-8-15 -Changed the way that software gets installed on the computer (It now stores  a pointer to the computer its been installed on)
+		-This affects both the Virus and the Antivirus classes, so they can now preform operations (ex: scans) on the system.
+			This is the next thing I'll implement
+		-Moved the changelog to its own file
+			
+10-9-15 -Created a fork of the repository to test some basic implementation of a virus
+
+10-11-15 -Made lots of changes to each components knowledge of the computer they've been installed on
+			ex: software can now install other software. Very meta.
+		-Made error handling related to the pointers in the previous addition
+		-Updated the way that USB_Drives get accessed from the computer object
+		-Added the autorun function, which can be disabled through the computer's OS settings
+		-Wrote a basic virus (virus.cpp) which exploits USB_Slots and the ability to autorun
+		-Added some testing to main to show how the virus works and test all of the added functionality. Everything works as expected
+		
+10-15-15 -Finished the testing of the network virus, but when I tried to move the code to the Virus Class I'm getting an error with xhash related to a NULL pointer
+
+10-17-15 -Added classes like Firewall, Browser, and Website, all of which I'm planning on integrating with the tests that we can do.
+		
+10-24-15 -Everything is a bit broken, but I just ran a simulation of 10,000 computers and it ran in 1:04 minutes, used 68 mb of ram, and about 26% maximum processor
+			
+10-25-15 -I fixed everything, but now the benchmarks are a little less impressive. I ran 1000 computers in 23 seconds just now, and if I do some more tests then I'll post the results of those too.
+         -I also overloaded assignment operators in virus and software classes, which will be really helpful in the future
+		 -Created polymorphic copy functions to make installation bug-free
+		 -Made other changes to the way installation works. Now it actually copies the software... As it should've...
+		 -Changes to the router/other connectivity objects in order to make simulations faster
+		 
+		  
+
+		Awaiting future additions
+
+Ideas for addition:
+	-Network Capabilities and management
+	-Ethernet port
+	-Firewall class Derived from Software that manages network activity (if installed)
+	-Capabilities of the Virus, Antivirus, and Software classes that mimic those of the real-life objects
+		Ex: I'm planning on adding a scan function to both the virus and antivirus the next time I work on this
+	-Other external and internal storage devices
+	-BIOS object that controls booting of the computer
+	-Permissions system
+		(Some programs can read/write to disk, or access network, others are restricted from both etc..)
+	-Expansions to the software class, as well as creating all of the common software that our machines will run
+	-Probable expansions to all existing objects as new ones are added:
+		Ex: Network Adapter will eventually need to be able to control traffic between the computers,
+			right now all it technically does is turn itself on and off
+	-Also although everything is working okay now we might want to get the program to a working point
+		(Say, when we can create two computer objects and connect them and test viruses between them)
+		And then do some clean up with the code before we start moving into Virtual Machines and non-windows Operating systems
+
+A few things to consider about all the code thats been written so far:
+	-Most classes use a protected inheritance, so their data isn't REALLY encapsulated, as it *should* be, but this is more convenient for now
+	-All the "get" functions of classes actually just print whatever field they refer to, so the names are inaccurate.
+
+	The list you made a while ago:
+
+	
+/*
+Software Objects
+-    Microsoft Office x
+--        Version x
+--        Task Name
+-    ComboFix (and RKill)
+--        Code Signature
+--        Task Name
+-    Antivirus x
+-        Engine (Clam, Avast, Symantec usually name of program)
+-        Time Since Last Update
+-        Task Name
+-        Real Time Protection?
+-        Scan Frequency (Always assume worst case scenario)
+--    Virtual Machine
+-        Shared Folders
+-        Network Type (shared/bridged/NAT/none)
+-        X86 Virtualization Enabled (vulnerability)
+
+
+Network
+-    Computer objects
+--        Entry points (Wireless, usb, firmware, etc.) x
+--        OS (Windows, Debian, version (IE XP SP3) ) x
+--        Relevant Software (Office programs, Web browser, P2P, AV, Combofix, VBox)
+--        Devices Connected (Network Card, Mouse, Headphones, GPU)
+--        Hard Drive Information (partitions, network drives, VM locations etc)
+--        Clock Time (float relative to network time [EG -3.57 seconds] )
+--        Number of Executable Files (Include dll32, msi, com, bat, etc.)
+--        Feel free to add to this list
+-    People x
+--        Training
+--        Personality
+--        Working Conditions
+--        Assigned Computers
+-         Admin Access
+*/
+
+//Also:  "Measuring programming progress by lines of code is like measuring aircraft building progress by weight. -Bill Gates
